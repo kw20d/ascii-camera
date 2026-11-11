@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css"></link>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ASCII Camera</title>
 </head>
 <body>
+  <div id="intro">
+      <video src="intro.webm" type="video/webm" autoplay muted playsinline id="logo-intro"></video>
+  </div>
   <div id="controls">
+    <video src="logo-ani.webm" type="video/webm" loop autoplay muted playsinline id="logo-ani"></video>
+      <button class="selector" id="startBtn">START THE CAMERA</button>
+    <select class="selector" id="chars-select">
+      <option class="option" value="ascii">ASCII</option>
+      <option class="option" value="binary">BINARY</option>
+      <option class="option" value="blocks">BLOCKS</option>
+    </select>
     <input id="slider" type="range" min="40" max="160" value="80">
+    <select class="selector" id="colors-select">
+      <option class="option" value="green">GREEN</option>
+      <option class="option" value="realColor">REAL COLORS</option>
+    </select>
   </div>
   <canvas id="canvas" width="400" height="400"></canvas>
   <video id="video" autoplay muted playsinline></video>
