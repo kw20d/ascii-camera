@@ -1,31 +1,40 @@
+//Declaring the display canvas
 let canvas = document.querySelector('#canvas');
+//Getting its context
 const c = canvas.getContext('2d');
+//Setting it to be the size of the window
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+//Forcing gthe body margin to 0 so that the canvas takes the full window
 document.body.style.margin = 0;
 
 
-
+//The Chars we use for the effect
 let chars =  "@%#*+=-:. ";
+//The helper function to adjust the size
 let setGrid = (newCols) => {
+    //Sets the Width to the slider's value and calculate the rest of the values in relation to it
     cols = newCols;
     rows = Math.round(cols * (video.videoHeight / video.videoWidth) * 0.55);
     newCanvas.width = cols;
     newCanvas.height = rows;
-    fontSize = 20;
+    fontSize = Math.floor(canvas.width / (cols * 0.6));
     c.font = fontSize + 'px monospace';
 }
 
+//Declaring the drawing canvas
 let newCanvas = document.createElement('canvas');
+//Getting its context
 let nc = newCanvas.getContext('2d', { willReadFrequently: true });
-let cols = 80;
-let rows = 0;
-let fontSize = 20;
+//Initiating the variables needed
+let cols;
+let rows;
+let fontSize;
 
-
-let input = document.querySelector('#input');
-input.addEventListener('click', () => {
-    setGrid(Number(input.value));
+//Gettign the slider
+let slider = document.querySelector('#slider');
+slider.addEventListener('click', () => {
+    setGrid(Number(slider.value));
 });
 
 newCanvas.style.cssText = 'position:fixed; top:10px; right:10px; width:200px; image-rendering:pixelated; border:1px solid red';
@@ -33,7 +42,7 @@ newCanvas.style.cssText = 'position:fixed; top:10px; right:10px; width:200px; im
 
 
 video.addEventListener('loadedmetadata', () => {
-    setGrid(Number(input.value));
+    setGrid(Number(slider.value));
     requestAnimationFrame(animate);
 });
 
@@ -53,7 +62,7 @@ let animate = () => {
     for(let i = 0; i < rows; i++) {
         values = '';
         for(let j = 0; j < cols; j++) {
-            values += chars[Math.floor((1 - getBrightness(cols - 1 - j, i, frame)) * (chars.length - 1))];
+            values += chars[Math.floor(getBrightness(cols - 1 - j, i, frame) * (chars.length - 1))];
         }
         c.fillText(values, fontSize, i * fontSize + 10);
     }
