@@ -8,7 +8,23 @@ document.body.style.margin = 0;
 let chars =  "@%#*+=-:. ";
 c.font = ('12px monospace');
 
-const cols = 40, rows = 20;
+const cols = 40;
+let rows = 20;
+
+let newCanvas = document.createElement('canvas');
+let nc = newCanvas.getContext('2d', { willReadFrequently: true });
+newCanvas.width = cols;
+newCanvas.height = rows;
+
+newCanvas.style.cssText = 'position:fixed; top:10px; right:10px; width:200px; image-rendering:pixelated; border:1px solid red';
+document.body.appendChild(newCanvas);
+
+video.addEventListener('loadedmetadata', () => {
+    rows = Math.round(cols * (video.videoHeight / video.videoWidth) * 0.55);
+    newCanvas.height = rows;
+    requestAnimationFrame(animate);
+});
+console.log(video.videoWidth, video.videoHeight, video.readyState)
 
 let getBrightness = (x, y) => {
     //return x / (cols - 1);
@@ -17,6 +33,7 @@ let getBrightness = (x, y) => {
 };
 
 let animate = () => {
+    nc.drawImage(video, 0, 0, cols, rows);
     c.clearRect(0, 0, canvas.width, canvas.height);
     let values = '';
     for(let i = 0; i < rows; i++) {

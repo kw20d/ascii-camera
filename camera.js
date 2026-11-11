@@ -4,8 +4,8 @@ async function startCamera() {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         await video.play();
-    } catch(error) {
-        console.log('Camera error:', err);
-    }
+    } catch (err) {
+    console.error('Camera error:', err.name, err.message);
+}
 }
 startCamera()
