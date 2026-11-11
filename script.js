@@ -4,24 +4,36 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 document.body.style.margin = 0;
 
-let chars =  "@%#*+=-:. ";
 
-const cols = 80;
-let rows = 20;
-const fontSize = 20;
-c.font = (fontSize + 'px monospace');
+
+let chars =  "@%#*+=-:. ";
+let setGrid = (newCols) => {
+    cols = newCols;
+    rows = Math.round(cols * (video.videoHeight / video.videoWidth) * 0.55);
+    newCanvas.width = cols;
+    newCanvas.height = rows;
+    fontSize = 20;
+    c.font = fontSize + 'px monospace';
+}
 
 let newCanvas = document.createElement('canvas');
 let nc = newCanvas.getContext('2d', { willReadFrequently: true });
-newCanvas.width = cols;
-newCanvas.height = rows;
+let cols = 80;
+let rows = 0;
+let fontSize = 20;
+
+
+let input = document.querySelector('#input');
+input.addEventListener('click', () => {
+    setGrid(Number(input.value));
+});
 
 newCanvas.style.cssText = 'position:fixed; top:10px; right:10px; width:200px; image-rendering:pixelated; border:1px solid red';
 //document.body.appendChild(newCanvas);
 
+
 video.addEventListener('loadedmetadata', () => {
-    rows = Math.round(cols * (video.videoHeight / video.videoWidth) * 0.55);
-    newCanvas.height = rows;
+    setGrid(Number(input.value));
     requestAnimationFrame(animate);
 });
 
@@ -29,6 +41,7 @@ let getBrightness = (x, y, frame) => {
     const i = (y * cols + x) * 4;
     return (0.299 * frame[i] + 0.587 * frame[i+1] + 0.114 * frame[i+2]) / 255;
 };
+
 
 let animate = () => {
     nc.drawImage(video, 0, 0, cols, rows);
