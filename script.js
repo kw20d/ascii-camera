@@ -4,7 +4,6 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 document.body.style.margin = 0;
 
-
 let chars =  "@%#*+=-:. ";
 
 const cols = 80;
@@ -32,10 +31,10 @@ let getBrightness = (x, y, frame) => {
 };
 
 let animate = () => {
-    c.clearRect(0, 0, canvas.width, canvas.height);
     nc.drawImage(video, 0, 0, cols, rows);
     c.fillStyle = 'black';
     c.fillRect(0,0,canvas.width,canvas.height);
+    c.fillStyle = '#00ff66';
     const frame = nc.getImageData(0, 0, cols, rows).data;
     let values = '';
     for(let i = 0; i < rows; i++) {
@@ -43,7 +42,6 @@ let animate = () => {
         for(let j = 0; j < cols; j++) {
             values += chars[Math.floor((1 - getBrightness(cols - 1 - j, i, frame)) * (chars.length - 1))];
         }
-        c.fillStyle = '#00ff66';
         c.fillText(values, fontSize, i * fontSize + 10);
     }
     requestAnimationFrame(animate);
