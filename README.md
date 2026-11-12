@@ -4,13 +4,6 @@
 
 **Live demo:** https://zascii-camera.netlify.app/
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>>
-=======
->>>>>>> 4c2e5c8 (Update README and website, remove demo)
-
 ## Features
 ...
 - Charsets: ASCII, binary, blocks
