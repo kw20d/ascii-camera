@@ -2,7 +2,7 @@
   <img src="logo-ani.gif" alt="ASCII Camera logo animation" width="500">
 </p>
 
-**Live demo:** https://zascii-camera.netlify.app/
+**Live demo:** https://kw20d.github.io/ascii-camera/
 
 ## Features
 ...
